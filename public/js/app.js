@@ -45,10 +45,33 @@ function saveLatestMeasure(measures) {
   }
 }
 
-async function fetchLatestMeasures() {
-  const timestampTableHeader = document.querySelector("#timestamp");
-  const luminosityTableHeader = document.querySelector("#luminosity");
+/**
+ * Insert new td in table
+ * @param {string} headerSelector
+ * @param {string} innerText
+ * @param {number} dataId
+ * @returns {void}
+ */
+function appendNewCell(headerSelector, innerText, dataId) {
+  const tableHeader = document.querySelector(headerSelector);
+  const newCell = document.createElement("td");
+  newCell.innerText = innerText;
+  newCell.setAttribute("data-id", dataId);
+  tableHeader.insertAdjacentElement("afterend", newCell);
+}
 
+/**
+ * Convert timestamp to time (24h) format
+ * @param {string} timestamp
+ * @returns
+ */
+function timestampTo24hTimeFormat(timestamp) {
+  return new Date(timestamp).toLocaleTimeString("en-US", {
+    hour12: false,
+  });
+}
+
+async function fetchLatestMeasures() {
   const serializedLatestMeasure = window.localStorage.getItem("latestMeasure");
 
   let measures = [];
@@ -69,21 +92,13 @@ async function fetchLatestMeasures() {
   }
 
   measures.forEach((measure) => {
-    const newTimestampCell = document.createElement("td");
-    const newLuminosityCell = document.createElement("td");
-
-    newTimestampCell.innerText = new Date(measure.timestamp).toLocaleTimeString(
-      "en-US",
-      { hour12: false }
+    appendNewCell(
+      "#timestamp",
+      timestampTo24hTimeFormat(measure.timestamp),
+      measure.id
     );
-    newLuminosityCell.innerText = measure.value;
 
-    newTimestampCell.setAttribute("data-id", measure.id);
-    newLuminosityCell.setAttribute("data-id", measure.id);
-
-    timestampTableHeader.insertAdjacentElement("afterend", newTimestampCell);
-
-    luminosityTableHeader.insertAdjacentElement("afterend", newLuminosityCell);
+    appendNewCell("#luminosity", measure.value, measure.id);
   });
 }
 
