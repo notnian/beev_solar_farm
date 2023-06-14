@@ -1,0 +1,16 @@
+{
+  "name": "beev_solar_farm",
+  "version": "1.0.0",
+  "description": "beev technical test",
+  "main": "main.js",
+  "scripts": {
+    "dev": "nodemon main.js"
+  },
+  "author": "Antonin HEBERT <notnian>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "sqlite3": "^5.1.6"
+  }
+}
