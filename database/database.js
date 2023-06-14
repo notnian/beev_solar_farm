@@ -1,7 +1,8 @@
 const sqlite3 = require("sqlite3").verbose();
+const path = require("node:path");
 
 // Connect to the SQLite database
-const db = new sqlite3.Database("database.db");
+const db = new sqlite3.Database(path.join(__dirname, "/database.db"));
 
 // Create the 'numbers' table if it doesn't exist
 db.run(`CREATE TABLE IF NOT EXISTS luminosity (
@@ -14,7 +15,7 @@ function generateRandomNumber(min, max) {
   return (Math.random() * (max - min) + min).toFixed(2);
 }
 
-const TIME_BETWEEN_SENSOR_MEASURES_IN_MS = 1000;
+const TIME_BETWEEN_SENSOR_MEASURES_IN_MS = 100;
 const DISABLE_LOG_OUTPUT = false;
 
 setInterval(() => {

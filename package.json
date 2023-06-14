@@ -2,9 +2,9 @@
   "name": "beev_solar_farm",
   "version": "1.0.0",
   "description": "beev technical test",
-  "main": "main.js",
   "scripts": {
-    "dev": "nodemon main.js"
+    "dev": "nodemon src/main.js",
+    "database": "node database/database.js"
   },
   "author": "Antonin HEBERT <notnian>",
   "license": "GPL-3.0",
